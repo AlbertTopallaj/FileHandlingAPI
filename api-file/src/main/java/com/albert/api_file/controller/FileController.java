@@ -4,10 +4,7 @@ import com.albert.api_file.service.FileService;
 import com.albert.api_file.service.FolderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.Map;
@@ -31,8 +28,13 @@ public class FileController {
                     .body(Map.of("error", exception.getMessage()));
         } catch (Exception exception) {
             exception.printStackTrace();
-            return Respons
+            return ResponseEntity.internalServerError()
+                    .body(Map.of("error", "Unexcepted error, try again later"));
         }
     }
 
+    @GetMapping("/all")
+    public List<FileResponse> getAllFiles() {
+        return fileService.getAllFiles.stream().map(FileResponse::from).toList();
+    }
 }
