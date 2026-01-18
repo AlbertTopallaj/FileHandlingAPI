@@ -1,4 +1,4 @@
 package com.albert.api_file.repository;
 
-public class FolderRepository {
+public interface FolderRepository {
 }

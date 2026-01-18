@@ -9,5 +9,5 @@ import java.util.UUID;
 
 @Repository
 public interface FileRepository extends JpaRepository<File, UUID> {
-    List<File> findByTitleContaining(String title);
+    List<File> findByTitleContaining(String name);
 }
