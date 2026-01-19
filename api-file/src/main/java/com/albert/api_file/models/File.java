@@ -17,8 +17,7 @@ import java.util.UUID;
 public class File {
 
     @Id
-    @GeneratedValue
-    private UUID id;
+    private UUID id = UUID.randomUUID();
 
     @Column(unique = true)
     private String title;
