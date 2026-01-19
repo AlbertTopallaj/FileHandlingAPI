@@ -4,10 +4,16 @@ meta {
   seq: 1
 }
 
-get {
-  url: http://localhost:8080/file
+post {
+  url: http://localhost:8080/file?name=kebab&content=kebab
   body: none
   auth: inherit
+}
+
+params:query {
+  name: kebab
+  content: kebab
+  : 
 }
 
 settings {
