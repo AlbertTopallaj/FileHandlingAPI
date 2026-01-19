@@ -1,5 +1,6 @@
 package com.albert.api_file.controller;
 
+import com.albert.api_file.dto.request.UploadFileRequest;
 import com.albert.api_file.service.FileService;
 import com.albert.api_file.service.FolderService;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ public class FileController {
     private final FolderService folderService;
 
     @PostMapping
-    public ResponseEntity<?> createFile(@RequestBody CreateFileRequest request){
+    public ResponseEntity<?> uploadFile(@RequestBody UploadFileRequest request){
         try {
             var file = fileService.createFile(file);
 
