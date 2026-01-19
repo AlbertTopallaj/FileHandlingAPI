@@ -7,6 +7,7 @@ import lombok.Setter;
 
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Entity(name = "users")
@@ -26,7 +27,13 @@ public class User {
     private String password;
 
     @Column(nullable = false)
-    private Date created_At;
+    private Date createdAt;
+
+    @OneToMany
+    private List<File> files;
+
+    @OneToMany
+    private List<Folder> folders;
 
     public User(String username, String password) {
         this.username = username;
