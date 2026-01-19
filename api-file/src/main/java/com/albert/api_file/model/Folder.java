@@ -12,6 +12,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "folders")
 public class Folder {
 
     @Id

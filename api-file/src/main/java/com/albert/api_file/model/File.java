@@ -1,28 +1,27 @@
 package com.albert.api_file.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
 
-import java.time.LocalDateTime;
+
+
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "files")
 public class File {
 
     @Id
     private final UUID id = UUID.randomUUID();
 
     @Column(unique = true)
-    private String name;
+    private String title;
 
     @Column(nullable = false)
     private String content;
@@ -34,13 +33,11 @@ public class File {
     private User user;
 
     @Column(nullable = false)
-    private LocalDateTime created_At;
+    private Date created_At;
 
-    public File(String name, String content, int size, User user, LocalDateTime created_At) {
-        this.name = name;
+    public File(String title, String content, User user){
+        this.title = title;
         this.content = content;
-        this.size = size;
-        this.user = user;
-        this.created_At = created_At;
+        this.user =  user;
     }
 }
