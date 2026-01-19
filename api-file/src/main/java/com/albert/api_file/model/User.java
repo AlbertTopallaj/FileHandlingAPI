@@ -28,9 +28,8 @@ public class User {
     @Column(nullable = false)
     private LocalDateTime created_At;
 
-    public User(UUID id, String username, String password, LocalDateTime created_At){
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
-        this.created_At = created_At;
     }
 }
