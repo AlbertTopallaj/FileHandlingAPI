@@ -9,11 +9,10 @@ import lombok.Setter;
 import java.util.Date;
 import java.util.UUID;
 
-@Entity
+@Entity(name = "users")
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "users")
 public class User {
 
     @Id

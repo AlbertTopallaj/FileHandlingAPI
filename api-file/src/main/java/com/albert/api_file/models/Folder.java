@@ -6,13 +6,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.UUID;
 
-@Entity
+@Entity(name = "folders")
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "folders")
 public class Folder {
 
     @Id
@@ -29,9 +29,9 @@ public class Folder {
     private User user;
 
     @Column(nullable = false)
-    private LocalDateTime created_At;
+    private Date created_At;
 
-    public Folder(String name, int content, User user, LocalDateTime created_At){
+    public Folder(String name, int content, User user, Date created_At){
         this.name = name;
         this.content = content;
         this.user = user;

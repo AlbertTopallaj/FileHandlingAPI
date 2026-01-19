@@ -10,11 +10,10 @@ import lombok.Setter;
 import java.util.Date;
 import java.util.UUID;
 
-@Entity
+@Entity(name = "files")
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "files")
 public class File {
 
     @Id
