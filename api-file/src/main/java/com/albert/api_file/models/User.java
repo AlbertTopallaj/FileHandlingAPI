@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -29,14 +30,19 @@ public class User {
     @Column(nullable = false)
     private Date createdAt;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private List<File> files;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private List<Folder> folders;
 
-    public User(String username, String password) {
+    public User(String username, String password, Date createdAt, List files, List folders) {
         this.username = username;
         this.password = password;
+        this.createdAt = new Date();
+        this.files = new ArrayList<>();
+        this.folders = new ArrayList<>();
     }
 }

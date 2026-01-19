@@ -29,15 +29,20 @@ public class File {
     @Column(nullable = false)
     private int size;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User owner;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Folder folder;
 
     @Column(nullable = false)
-    private Date created_At;
+    private Date createdAt;
 
-    public File(String title, String content, User user){
+    public File(String title, String content, User owner, Folder folder, Date createdAt){
         this.title = title;
         this.content = content;
-        this.user =  user;
+        this.owner =  owner;
+        this.folder = folder;
+        this.createdAt = new Date();
     }
 }
