@@ -1,7 +1,7 @@
 package com.albert.api_file.controllers;
 
-import com.albert.api_file.dtos.request.UploadFileRequest;
-import com.albert.api_file.dtos.response.FileResponse;
+import com.albert.api_file.dtos.UploadFileRequest;
+import com.albert.api_file.dtos.FileResponse;
 import com.albert.api_file.services.FileService;
 import com.albert.api_file.services.FolderService;
 import lombok.RequiredArgsConstructor;

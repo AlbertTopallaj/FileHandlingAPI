@@ -1,6 +1,6 @@
 package com.albert.api_file.controllers;
 
-import com.albert.api_file.dtos.request.CreateUserRequest;
+import com.albert.api_file.dtos.CreateUserRequest;
 import com.albert.api_file.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.albert.api_file.dtos.response;
+package com.albert.api_file.dtos;
 
 import com.albert.api_file.models.User;
 import lombok.Getter;

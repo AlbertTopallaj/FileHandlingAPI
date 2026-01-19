@@ -1,5 +1,4 @@
-package com.albert.api_file.dtos.request;
-
+package com.albert.api_file.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,8 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class UploadFileRequest {
-    private String title;
-    private String content;
+public class CreateUserRequest {
     private String username;
+    private String password;
 }
