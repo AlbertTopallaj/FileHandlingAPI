@@ -1,6 +1,6 @@
-package com.albert.api_file.repository;
+package com.albert.api_file.repositories;
 
-import com.albert.api_file.model.File;
+import com.albert.api_file.models.File;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

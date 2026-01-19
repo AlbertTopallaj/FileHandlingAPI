@@ -1,8 +1,8 @@
-package com.albert.api_file.service;
+package com.albert.api_file.services;
 
-import com.albert.api_file.dto.request.CreateUserRequest;
-import com.albert.api_file.model.User;
-import com.albert.api_file.repository.UserRepository;
+import com.albert.api_file.dtos.request.CreateUserRequest;
+import com.albert.api_file.models.User;
+import com.albert.api_file.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

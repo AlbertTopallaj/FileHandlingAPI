@@ -1,4 +1,4 @@
-package com.albert.api_file.model;
+package com.albert.api_file.models;
 
 import jakarta.persistence.*;
 import lombok.Getter;

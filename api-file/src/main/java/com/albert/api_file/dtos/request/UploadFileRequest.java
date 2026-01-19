@@ -1,7 +1,6 @@
-package com.albert.api_file.dto.request;
+package com.albert.api_file.dtos.request;
 
 
-import com.albert.api_file.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

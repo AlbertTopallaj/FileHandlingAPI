@@ -1,4 +1,4 @@
-package com.albert.api_file.dto.request;
+package com.albert.api_file.dtos.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

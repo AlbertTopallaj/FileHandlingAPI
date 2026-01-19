@@ -1,9 +1,9 @@
-package com.albert.api_file.controller;
+package com.albert.api_file.controllers;
 
-import com.albert.api_file.dto.request.UploadFileRequest;
-import com.albert.api_file.dto.response.FileResponse;
-import com.albert.api_file.service.FileService;
-import com.albert.api_file.service.FolderService;
+import com.albert.api_file.dtos.request.UploadFileRequest;
+import com.albert.api_file.dtos.response.FileResponse;
+import com.albert.api_file.services.FileService;
+import com.albert.api_file.services.FolderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

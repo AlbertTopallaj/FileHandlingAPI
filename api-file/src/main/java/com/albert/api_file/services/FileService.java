@@ -1,9 +1,9 @@
-package com.albert.api_file.service;
+package com.albert.api_file.services;
 
-import com.albert.api_file.dto.request.UploadFileRequest;
-import com.albert.api_file.model.File;
-import com.albert.api_file.repository.FileRepository;
-import com.albert.api_file.repository.UserRepository;
+import com.albert.api_file.dtos.request.UploadFileRequest;
+import com.albert.api_file.models.File;
+import com.albert.api_file.repositories.FileRepository;
+import com.albert.api_file.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

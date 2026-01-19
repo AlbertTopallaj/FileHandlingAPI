@@ -1,4 +1,4 @@
-package com.albert.api_file.service;
+package com.albert.api_file.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

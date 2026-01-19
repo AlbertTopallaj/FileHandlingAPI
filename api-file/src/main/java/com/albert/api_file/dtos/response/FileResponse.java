@@ -1,7 +1,6 @@
-package com.albert.api_file.dto.response;
+package com.albert.api_file.dtos.response;
 
-import com.albert.api_file.model.File;
-import com.albert.api_file.repository.FileRepository;
+import com.albert.api_file.models.File;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
