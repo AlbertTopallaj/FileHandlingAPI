@@ -2,8 +2,8 @@ package com.albert.api_file.services;
 
 import com.albert.api_file.dtos.request.UploadFileRequest;
 import com.albert.api_file.models.File;
-import com.albert.api_file.repositories.FileRepository;
-import com.albert.api_file.repositories.UserRepository;
+import com.albert.api_file.repositories.IFileRepository;
+import com.albert.api_file.repositories.IUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +13,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FileService {
 
-    private final FileRepository fileRepository;
-    private final UserRepository userRepository;
+    private final IFileRepository fileRepository;
+    private final IUserRepository userRepository;
 
     public File createFile(UploadFileRequest request) {
         if (request.getTitle().isBlank()) {

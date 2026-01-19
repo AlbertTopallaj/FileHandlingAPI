@@ -1,20 +1,22 @@
 package com.albert.api_file.services;
 
-import com.albert.api_file.dtos.request.CreateUserRequest;
 import com.albert.api_file.models.User;
-import com.albert.api_file.repositories.UserRepository;
+import com.albert.api_file.repositories.IUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UserService implements IUserService{
 
-    private final UserRepository userRepository;
+    private final IUserRepository userRepository;
 
-    public User createUser(CreateUserRequest request){
-        var user = new User(request.getUsername(), request.getPassword());
-
+    @Override
+    public User createUser(String username, String password) throws Exception{
+        if (username.isBlank() || username.length() < 4){
+            throw new IllegalArgumentException();
+        }
+        var user = new User(username, password);
         return userRepository.save(user);
     }
 }
