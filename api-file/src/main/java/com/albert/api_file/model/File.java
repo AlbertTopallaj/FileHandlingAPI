@@ -18,7 +18,8 @@ import java.util.UUID;
 public class File {
 
     @Id
-    private final UUID id = UUID.randomUUID();
+    @GeneratedValue
+    private UUID id;
 
     @Column(unique = true)
     private String title;

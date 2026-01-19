@@ -16,7 +16,8 @@ import java.util.UUID;
 public class Folder {
 
     @Id
-    private final UUID id = UUID.randomUUID();
+    @GeneratedValue
+    private UUID id;
 
     @Column(unique = true)
     private String name;
