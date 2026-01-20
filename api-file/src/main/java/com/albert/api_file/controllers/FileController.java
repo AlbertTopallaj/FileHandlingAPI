@@ -17,6 +17,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class FileController {
 
+    /*
     private final FileService fileService;
     private final FolderService folderService;
 
@@ -40,4 +41,7 @@ public class FileController {
     public List<FileResponse> getAllFiles() {
         return fileService.getAllFiles().stream().map(FileResponse::from).toList();
     }
+
+
+     */
 }

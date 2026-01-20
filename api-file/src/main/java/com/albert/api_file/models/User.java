@@ -37,7 +37,7 @@ public class User {
     @JoinColumn(name = "user_id")
     private List<Folder> folders;
 
-    public User(String username, String password, Date createdAt, List files, List folders) {
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
         this.createdAt = new Date();

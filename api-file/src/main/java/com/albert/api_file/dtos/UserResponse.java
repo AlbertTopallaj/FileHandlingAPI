@@ -18,9 +18,10 @@ public class UserResponse {
 
     private Date createdAt;
 
-    public UserResponse(UUID id, String username, Date createdAt) {
+    public UserResponse(UUID id, String username, String password, Date createdAt) {
         this.id = id;
         this.username = username;
+        this.password = password;
         this.createdAt = createdAt;
     }
 
@@ -28,6 +29,7 @@ public class UserResponse {
             return new UserResponse(
                     user.getId(),
                     user.getUsername(),
+                    user.getPassword(),
                     user.getCreatedAt()
             );
         }

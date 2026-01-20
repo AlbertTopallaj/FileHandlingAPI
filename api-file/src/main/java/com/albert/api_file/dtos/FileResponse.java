@@ -12,6 +12,8 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 public class FileResponse {
+
+    /*
     private final UUID id;
     private String title;
     private Date created_At;
@@ -25,4 +27,6 @@ public class FileResponse {
                 file.getUser().getId()
         );
     }
+
+    */
 }

@@ -22,5 +22,7 @@ public class UserService implements IUserService {
 
         var user = new User(username, password);
         user = userRepository.save(user);
+
+        return user;
     }
 }
