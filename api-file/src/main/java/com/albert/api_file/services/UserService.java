@@ -3,6 +3,7 @@ package com.albert.api_file.services;
 import com.albert.api_file.models.User;
 import com.albert.api_file.repositories.IUserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 public class UserService implements IUserService {
 
     private final IUserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public User createUser(String username, String password) throws Exception {
@@ -20,7 +22,9 @@ public class UserService implements IUserService {
             throw new IllegalArgumentException("Password is either empty or too short. Must contain 8 or more characters");
         }
 
-        var user = new User(username, password);
+        String hashedPassword = passwordEncoder.encode(password);
+
+        var user = new User(username, hashedPassword);
         user = userRepository.save(user);
 
         return user;
