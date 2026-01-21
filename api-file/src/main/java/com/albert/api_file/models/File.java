@@ -37,7 +37,7 @@ public class File {
     @Column(nullable = false)
     private Date createdAt;
 
-    public File(String title, String content, User owner, Folder folder, Date createdAt){
+    public File(String title, String content) {
         this.title = title;
         this.content = content;
         this.owner =  owner;
