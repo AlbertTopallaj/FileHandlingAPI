@@ -6,14 +6,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
-public class UserService implements IUserService {
+public class UserService {
 
     private final IUserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    @Override
     public User createUser(String username, String password) throws Exception {
         if(username.isBlank() || username.length() < 4){
             throw new IllegalArgumentException("Username is either empty or too short. Must contain 4 or more characters");

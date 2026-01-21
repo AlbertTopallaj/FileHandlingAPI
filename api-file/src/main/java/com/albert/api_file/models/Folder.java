@@ -30,7 +30,7 @@ public class Folder {
     @Column(nullable = false)
     private Date created_At;
 
-    public Folder(String name, int content, User user, Date created_At){
+    public Folder(String name){
         this.name = name;
         this.content = content;
         this.user = user;

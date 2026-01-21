@@ -1,13 +1,11 @@
 package com.albert.api_file.dtos;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
-public class CreateFolderRequest {
+public class DeleteFolderRequest {
     private String username;
     private String password;
     private String name;
