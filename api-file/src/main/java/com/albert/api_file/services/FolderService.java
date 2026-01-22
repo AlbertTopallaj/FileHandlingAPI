@@ -26,6 +26,7 @@ public class FolderService {
         return folder;
     }
 
+    /*
     public void deleteFolderByName(DeleteFolderRequest request) {
         var user = userRepository.findByUsername(request.getUsername())
                 .orElseThrow(IllegalArgumentException::new);
@@ -34,4 +35,6 @@ public class FolderService {
 
         folderRepository.delete(folder);
     }
+
+     */
 }

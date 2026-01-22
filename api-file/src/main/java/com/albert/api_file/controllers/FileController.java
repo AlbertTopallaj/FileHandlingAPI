@@ -2,8 +2,8 @@ package com.albert.api_file.controllers;
 
 import com.albert.api_file.dtos.UploadFileRequest;
 import com.albert.api_file.dtos.FileResponse;
+import com.albert.api_file.models.File;
 import com.albert.api_file.services.FileService;
-import com.albert.api_file.services.FolderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,16 +17,14 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class FileController {
 
-    /*
     private final FileService fileService;
-    private final FolderService folderService;
 
     @PostMapping
     public ResponseEntity<?> uploadFile(@RequestBody UploadFileRequest request){
         try {
             var file = fileService.createFile(request);
 
-            return ResponseEntity.created(URI.create("/file")).body(FileResponse.from(file));
+            return ResponseEntity.created(URI.create("/file")).body(FileResponse.fromModel(file));
         } catch (IllegalArgumentException exception) {
             return ResponseEntity.badRequest()
                     .body(Map.of("error", exception.getMessage()));
@@ -38,10 +36,7 @@ public class FileController {
     }
 
     @GetMapping("/all")
-    public List<FileResponse> getAllFiles() {
-        return fileService.getAllFiles().stream().map(FileResponse::from).toList();
+    public List<File> getAllFiles() {
+        return fileService.getAllFiles();
     }
-
-
-     */
 }
