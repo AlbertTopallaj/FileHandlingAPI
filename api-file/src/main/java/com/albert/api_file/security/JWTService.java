@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Component
 public class JWTService {
-    private final Algorithm algorithm = Algorithm.HMAC256("my-secret-string-no-one-shall-ever-find");
+    private final Algorithm algorithm = Algorithm.HMAC256(";)");
     private final JWTVerifier verifier = JWT.require(algorithm)
             .withIssuer("auth0")
             .build();

@@ -1,6 +1,7 @@
 package com.albert.api_file.controllers;
 
 import com.albert.api_file.dtos.CreateUserRequest;
+import com.albert.api_file.dtos.LoginRequest;
 import com.albert.api_file.dtos.UserResponse;
 import com.albert.api_file.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping
+    @PostMapping("/user/create-user")
     public ResponseEntity<?> createUser(@RequestBody CreateUserRequest request) {
         try {
             var user = userService.createUser(request.getUsername(), request.getPassword());
@@ -34,5 +35,12 @@ public class UserController {
                     ));
         }
     }
+    @PostMapping("/user/login")
+    public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest){
+        try {
+
+        }
+    }
+
 }
 
