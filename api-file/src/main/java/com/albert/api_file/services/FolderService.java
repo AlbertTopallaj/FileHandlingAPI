@@ -1,13 +1,13 @@
 package com.albert.api_file.services;
 
 import com.albert.api_file.dtos.CreateFolderRequest;
-import com.albert.api_file.dtos.DeleteFolderRequest;
 import com.albert.api_file.models.Folder;
-import com.albert.api_file.repositories.IFileRepository;
 import com.albert.api_file.repositories.IFolderRepository;
 import com.albert.api_file.repositories.IUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -26,15 +26,13 @@ public class FolderService {
         return folder;
     }
 
-    /*
-    public void deleteFolderByName(DeleteFolderRequest request) {
-        var user = userRepository.findByUsername(request.getUsername())
-                .orElseThrow(IllegalArgumentException::new);
-
-        var folder = folderRepository.findByName(request.getName());
-
-        folderRepository.delete(folder);
+    public Folder getAllFolders(){
+        return (Folder) folderRepository.findAll();
     }
 
-     */
+    public Folder deleteFolderById(UUID request) {
+        var folder = folderRepository.findById(request.getId());
+
+        return folderRepository.delete(folder);
+    }
 }

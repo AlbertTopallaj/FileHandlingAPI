@@ -30,13 +30,17 @@ public class FileController {
                     .body(Map.of("error", exception.getMessage()));
         } catch (Exception exception) {
             exception.printStackTrace();
-            return ResponseEntity.internalServerError()
+            return ResponseEntity
+                    .internalServerError()
                     .body(Map.of("error", "Unexcepted error, try again later"));
         }
     }
 
     @GetMapping("/all")
-    public List<File> getAllFiles() {
-        return fileService.getAllFiles();
+    public List<FileResponse> getAllFiles() {
+        return fileService.getAllFiles()
+                .stream()
+                .map(FileResponse::fromModel)
+                .toList();
     }
 }
