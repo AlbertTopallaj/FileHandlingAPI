@@ -16,37 +16,41 @@ import java.net.URI;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("create-user")
+    @PostMapping("/register")
     public ResponseEntity<?> createUser(@RequestBody CreateUserRequest request) {
         try {
             var user = userService.createUser(request.getUsername(), request.getPassword());
             return ResponseEntity.created(URI.create("/user")).body(UserResponse.fromModel(user));
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity
                     .badRequest()
                     .body(Map.of(
-                            "message", "Invalid password",
+                            "message", "Invalid password, password must be longer.",
                             "errors", "Something went wrong"
                     ));
         }
     }
-    @PostMapping("login")
+    @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {
+        // TODO: This does not work, fix it.
         try {
             String token = userService.login(loginRequest.getUsername(), loginRequest.getPassword());
+
+            return ResponseEntity.ok(token);
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity
                     .badRequest()
                     .body(Map.of(
                             "message", "Invalid credentalias"
                     ));
-        } return ResponseEntity.ok(new LoginResponse("inloggad"));
+        }
     }
 }
 
