@@ -13,7 +13,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @RequiredArgsConstructor
-public class VerifyJWTFilter extends OncePerRequestFilter {
+public class AuthenticationFilter extends OncePerRequestFilter {
 
     private final UserService userService;
 
