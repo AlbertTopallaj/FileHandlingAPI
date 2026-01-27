@@ -37,12 +37,4 @@ public class FolderController {
     public List<Folder> getAllFolders(){
         return (List<Folder>) folderService.getAllFolders();
     }
-
-    /*
-    @DeleteMapping("/{folderId}")
-    public ResponseEntity<?> deleteFolder(@PathVariable UUID folderId, @RequestBody DeleteFolderRequest deleteFolderRequest){
-        var folder = folderService.deleteFolderById(deleteFolderRequest.getId());
-        return (ResponseEntity<?>) ResponseEntity.ok();
-    }
-*/
 }

@@ -9,5 +9,4 @@ import java.util.UUID;
 
 @Repository
 public interface IFolderRepository extends JpaRepository<Folder, UUID> {
-    Folder delete(Optional<Folder> folder);
 }

@@ -29,12 +29,4 @@ public class FolderService {
     public Folder getAllFolders() {
         return (Folder) folderRepository.findAll();
     }
-
-    /*
-    public Folder deleteFolderById(UUID request) {
-        var folder = folderRepository.findById(request.getId());
-
-        return folderRepository.delete(folder);
-    }
-     */
 }
