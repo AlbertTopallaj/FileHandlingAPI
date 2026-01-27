@@ -4,13 +4,17 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
-@Component
+@Service
 public class JWTService {
+
     private final Algorithm algorithm = Algorithm.HMAC256(";)");
+
     private final JWTVerifier verifier = JWT.require(algorithm)
             .withIssuer("auth0")
             .build();
@@ -18,13 +22,15 @@ public class JWTService {
     public String generateToken(UUID userId){
         return JWT.create()
                 .withIssuer("auth0")
+                .withIssuedAt(Instant.now())
+                .withExpiresAt(Instant.now().plus(1, ChronoUnit.HOURS))
                 .withSubject(userId.toString())
                 .sign(algorithm);
     }
 
     public UUID verifyToken(String token){
         DecodedJWT decodedJWT = verifier.verify(token);
-        String idString = decodedJWT.getSubject();
-        return UUID.fromString(idString);
+
+        return UUID.fromString(decodedJWT.getSubject());
     }
 }
