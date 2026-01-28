@@ -28,7 +28,7 @@ public class FolderController {
     public ResponseEntity<?> createFolder(@RequestBody CreateFolderRequest createFolderRequest, @AuthenticationPrincipal User user){
         try {
             var folder = folderService.createFolder(createFolderRequest);
-            return ResponseEntity.created(URI.create("/file")).body(FolderResponse.fromModel(folder));
+            return ResponseEntity.created(URI.create("/folder")).body(FolderResponse.fromModel(folder));
         } catch (IllegalArgumentException exception) {
             return ResponseEntity.badRequest()
                     .body(Map.of("error", exception.getMessage()));

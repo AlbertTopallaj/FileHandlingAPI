@@ -30,7 +30,7 @@ public class Folder {
     @Column(nullable = false)
     private LocalDateTime created_At;
 
-    public Folder(String name, User owner){
+    public Folder(String name){
         this.name = name;
         this.owner = owner;
         this.content = 0;

@@ -20,7 +20,7 @@ public class FolderService {
     private final IUserRepository userRepository;
 
     public Folder createFolder(CreateFolderRequest request) {
-        var folder = new Folder(request.getName(), request.getOwner());
+        var folder = new Folder(request.getName());
 
 
         if (request.getName() == null){
