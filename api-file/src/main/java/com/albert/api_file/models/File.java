@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
-
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -35,13 +35,13 @@ public class File {
     private Folder folder;
 
     @Column(nullable = false)
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     public File(String title, String content) {
         this.title = title;
         this.content = content;
         this.owner =  owner;
         this.folder = folder;
-        this.createdAt = new Date();
+        this.createdAt = LocalDateTime.now();
     }
 }

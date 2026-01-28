@@ -1,9 +1,6 @@
 package com.albert.api_file.controllers;
 
-import com.albert.api_file.dtos.CreateUserRequest;
-import com.albert.api_file.dtos.LoginRequest;
-import com.albert.api_file.dtos.LoginResponse;
-import com.albert.api_file.dtos.UserResponse;
+import com.albert.api_file.dtos.*;
 import com.albert.api_file.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +19,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> createUser(@RequestBody CreateUserRequest request) {
+    public ResponseEntity<?> createUser(@RequestBody RegisterUserRequest request) {
         try {
             var user = userService.createUser(request.getUsername(), request.getPassword());
             return ResponseEntity.created(URI.create("/user")).body(UserResponse.fromModel(user));

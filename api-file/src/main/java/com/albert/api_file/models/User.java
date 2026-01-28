@@ -9,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Entity(name = "users")
@@ -27,7 +28,7 @@ public class User implements UserDetails{
     private String password;
 
     @Column(nullable = false)
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -40,12 +41,11 @@ public class User implements UserDetails{
     public User(String username, String password) {
         this.username = username;
         this.password = password;
-        this.createdAt = new Date();
+        this.createdAt = LocalDateTime.now();
         this.files = new ArrayList<>();
         this.folders = new ArrayList<>();
     }
 
-    // UserDetails interface methods
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_USER"));

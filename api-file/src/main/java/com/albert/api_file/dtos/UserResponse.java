@@ -1,6 +1,7 @@
 package com.albert.api_file.dtos;
 
 import com.albert.api_file.models.User;
+import com.albert.api_file.utilites.DateFormatterUtility;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,9 +17,9 @@ public class UserResponse {
     private String username;
     private String password;
 
-    private Date createdAt;
+    private String createdAt;
 
-    public UserResponse(UUID id, String username, String password, Date createdAt) {
+    public UserResponse(UUID id, String username, String password, String createdAt) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -30,7 +31,7 @@ public class UserResponse {
                     user.getId(),
                     user.getUsername(),
                     user.getPassword(),
-                    user.getCreatedAt()
+                    user.getCreatedAt().format(DateFormatterUtility.DATE_TIME_FORMATTER)
             );
         }
     }

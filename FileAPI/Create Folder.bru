@@ -1,11 +1,11 @@
 meta {
-  name: Create User
+  name: Create Folder
   type: http
-  seq: 2
+  seq: 5
 }
 
 post {
-  url: http://localhost:8080/register
+  url: http://localhost:8080/folder
   body: json
   auth: inherit
 }
@@ -16,10 +16,8 @@ headers {
 
 body:json {
   {
-    "username": "AlbertTopallaj",
-    "password": "GoogleDrive"
+    "name": "Mapp"
   }
-  
 }
 
 settings {

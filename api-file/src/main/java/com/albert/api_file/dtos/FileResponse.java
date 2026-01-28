@@ -3,41 +3,38 @@ package com.albert.api_file.dtos;
 import com.albert.api_file.models.File;
 import com.albert.api_file.models.Folder;
 import com.albert.api_file.models.User;
+import com.albert.api_file.utilites.DateFormatterUtility;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.StringTokenizer;
 import java.util.UUID;
 
 @Getter
-@Setter
+@AllArgsConstructor
 public class FileResponse {
 
     private final UUID id;
     private String title;
     private String content;
-    private User owner;
-    private Folder folder;
-    private Date createdAt;
 
-    public FileResponse(UUID id, String title, String content, User owner, Folder folder, Date createdAt) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-        this.owner = owner;
-        this.folder = folder;
-        this.createdAt = createdAt;
-    }
+    private String ownerUsername;
+
+    private UUID folderId;
+    private String createdAt;
 
     public static FileResponse fromModel(File file){
         return new FileResponse(
                 file.getId(),
                 file.getTitle(),
                 file.getContent(),
-                file.getOwner(),
-                file.getFolder(),
-                file.getCreatedAt()
+                file.getOwner().getUsername(),
+                file.getFolder() != null ? file.getFolder().getId() : null,
+                file.getCreatedAt().format(DateFormatterUtility.DATE_TIME_FORMATTER)
         );
     }
 }

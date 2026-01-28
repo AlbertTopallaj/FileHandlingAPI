@@ -8,5 +8,5 @@ import java.util.UUID;
 @Getter
 @Setter
 public class DeleteFolderRequest {
-    private UUID id;
+    private String name;
 }

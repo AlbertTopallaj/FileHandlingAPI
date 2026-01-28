@@ -4,10 +4,12 @@ import com.albert.api_file.dtos.CreateFolderRequest;
 import com.albert.api_file.dtos.DeleteFolderRequest;
 import com.albert.api_file.dtos.FolderResponse;
 import com.albert.api_file.models.Folder;
+import com.albert.api_file.models.User;
 import com.albert.api_file.services.FileService;
 import com.albert.api_file.services.FolderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -23,10 +25,10 @@ public class FolderController {
     private final FolderService folderService;
 
     @PostMapping
-    public ResponseEntity<?> createFolder(@RequestBody CreateFolderRequest createFolderRequest){
+    public ResponseEntity<?> createFolder(@RequestBody CreateFolderRequest createFolderRequest, @AuthenticationPrincipal User user){
         try {
             var folder = folderService.createFolder(createFolderRequest);
-            return ResponseEntity.created(URI.create("/file")).body(folder);
+            return ResponseEntity.created(URI.create("/file")).body(FolderResponse.fromModel(folder));
         } catch (IllegalArgumentException exception) {
             return ResponseEntity.badRequest()
                     .body(Map.of("error", exception.getMessage()));
@@ -34,7 +36,7 @@ public class FolderController {
     }
 
     @GetMapping("/all")
-    public List<Folder> getAllFolders(){
+    public List<Folder> getAllFolders(@AuthenticationPrincipal User user){
         return (List<Folder>) folderService.getAllFolders();
     }
 }

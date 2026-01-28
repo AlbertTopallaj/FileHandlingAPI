@@ -5,15 +5,29 @@ meta {
 }
 
 post {
-  url: http://localhost:8080/file?name=kebab&content=kebab
-  body: none
-  auth: inherit
+  url: http://localhost:8080/file
+  body: json
+  auth: bearer
 }
 
 params:query {
-  name: kebab
-  content: kebab
   : 
+}
+
+headers {
+  Content-Type: application/json
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoMCIsImlhdCI6MTc2OTYzMTUzMSwiZXhwIjoxNzY5NjM1MTMxLCJzdWIiOiJjYWFiZjIyMi0zMmU4LTQxYTYtYmY5ZC1kMTEyNjQyYjE4YTcifQ.lfF2AjVuSbMq5wYFxJLCy6rUL1MWnxZn9VpEhz2cbxE
+}
+
+body:json {
+  {
+    "title": "Första filen",
+    "content": "Min absolut första chatten",
+    "username": "AlbertTopallaj"
+  }
 }
 
 settings {

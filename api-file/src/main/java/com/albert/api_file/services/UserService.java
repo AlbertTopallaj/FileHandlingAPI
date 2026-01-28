@@ -31,6 +31,10 @@ public class UserService  {
             throw new IllegalArgumentException("Password is either empty or too short. Must contain 8 or more characters");
         }
 
+        if (userRepository.existsByUsername(username)){
+            throw new IllegalArgumentException("Användarnamnet är upptaget.");
+        }
+
         String hashedPassword = passwordEncoder.encode(password);
 
         var user = new User(username, hashedPassword);

@@ -25,15 +25,15 @@ public class Folder {
     private int content;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    private User user;
+    private User owner;
 
     @Column(nullable = false)
-    private Date created_At;
+    private LocalDateTime created_At;
 
-    public Folder(String name){
+    public Folder(String name, User owner){
         this.name = name;
-        this.content = content;
-        this.user = user;
-        this.created_At = created_At;
+        this.owner = owner;
+        this.content = 0;
+        this.created_At = LocalDateTime.now();
     }
 }
