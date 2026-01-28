@@ -19,8 +19,9 @@ public class FolderService {
     private final IFolderRepository folderRepository;
     private final IUserRepository userRepository;
 
-    public Folder createFolder(CreateFolderRequest request) {
+    public Folder createFolder(CreateFolderRequest request, User user) {
         var folder = new Folder(request.getName());
+        folder.setOwner(user);
 
 
         if (request.getName() == null){
