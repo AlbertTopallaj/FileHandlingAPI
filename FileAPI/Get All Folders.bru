@@ -1,0 +1,15 @@
+meta {
+  name: Get All Folders
+  type: http
+  seq: 6
+}
+
+get {
+  url: http://localhost:8080/folder
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}

@@ -25,7 +25,7 @@ public class FileService {
         return file;
     }
 
-    public List<File> getAllFiles(){
-        return fileRepository.findAll();
+    public List<File> getAllFiles(User user){
+        return fileRepository.findAllByOwner(user);
     }
 }

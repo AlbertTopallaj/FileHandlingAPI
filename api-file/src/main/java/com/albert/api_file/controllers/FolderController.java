@@ -36,7 +36,10 @@ public class FolderController {
     }
 
     @GetMapping("/all")
-    public List<Folder> getAllFolders(@AuthenticationPrincipal User user){
-        return (List<Folder>) folderService.getAllFolders();
+    public List<FolderResponse> getAllFolders(@AuthenticationPrincipal User user){
+        return folderService.getAllFolders(user)
+                .stream()
+                .map(FolderResponse::fromModel)
+                .toList();
     }
 }

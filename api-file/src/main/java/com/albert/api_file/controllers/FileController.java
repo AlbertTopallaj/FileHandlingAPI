@@ -40,7 +40,7 @@ public class FileController {
 
     @GetMapping("/all")
     public List<FileResponse> getAllFiles(@AuthenticationPrincipal User user) {
-        return fileService.getAllFiles()
+        return fileService.getAllFiles(user)
                 .stream()
                 .map(FileResponse::fromModel)
                 .toList();
