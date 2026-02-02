@@ -42,4 +42,14 @@ public class FolderController {
                 .map(FolderResponse::fromModel)
                 .toList();
     }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<Void> deleteFolder(@AuthenticationPrincipal User user, @RequestBody DeleteFolderRequest request){
+        try {
+            folderService.deleteFolder(request);
+            return ResponseEntity.noContent().build();
+        } catch (IllegalArgumentException exception){
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }

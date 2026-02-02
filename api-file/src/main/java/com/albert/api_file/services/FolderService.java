@@ -1,6 +1,7 @@
 package com.albert.api_file.services;
 
 import com.albert.api_file.dtos.CreateFolderRequest;
+import com.albert.api_file.dtos.DeleteFolderRequest;
 import com.albert.api_file.models.Folder;
 import com.albert.api_file.models.User;
 import com.albert.api_file.repositories.IFolderRepository;
@@ -31,5 +32,9 @@ public class FolderService {
 
     public List<Folder> getAllFolders(User user) {
         return folderRepository.findAllByOwner(user);
+    }
+
+    public void deleteFolder(DeleteFolderRequest request){
+        folderRepository.deleteById(request.getId());
     }
 }
