@@ -44,4 +44,7 @@ public class File {
         this.folder = folder;
         this.createdAt = LocalDateTime.now();
     }
+
+    public File(String name) {
+    }
 }

@@ -1,5 +1,6 @@
 package com.albert.api_file.services;
 
+import com.albert.api_file.dtos.DeleteFileRequest;
 import com.albert.api_file.dtos.UploadFileRequest;
 import com.albert.api_file.models.File;
 import com.albert.api_file.models.User;
@@ -27,5 +28,9 @@ public class FileService {
 
     public List<File> getAllFiles(User user){
         return fileRepository.findAllByOwner(user);
+    }
+
+    public void deleteFile(DeleteFileRequest request){
+        fileRepository.deleteById(request.getId());
     }
 }

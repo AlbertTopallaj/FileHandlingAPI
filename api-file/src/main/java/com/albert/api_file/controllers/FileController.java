@@ -1,5 +1,6 @@
 package com.albert.api_file.controllers;
 
+import com.albert.api_file.dtos.DeleteFileRequest;
 import com.albert.api_file.dtos.UploadFileRequest;
 import com.albert.api_file.dtos.FileResponse;
 import com.albert.api_file.models.File;
@@ -44,5 +45,15 @@ public class FileController {
                 .stream()
                 .map(FileResponse::fromModel)
                 .toList();
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<Void> deleteFile(@RequestBody DeleteFileRequest request, @AuthenticationPrincipal User user){
+        try {
+            fileService.deleteFile(request);
+            return ResponseEntity.noContent().build();
+        } catch (IllegalArgumentException exception){
+            return ResponseEntity.badRequest().build();
+        }
     }
 }

@@ -17,10 +17,10 @@ public class FolderResponse {
     private final UUID id;
     private String name;
     private int content;
-    private User owner;
+    private String owner;
     private String createdAt;
 
-    public FolderResponse(UUID id, String name, int content, User owner, String createdAt) {
+    public FolderResponse(UUID id, String name, int content, String owner, String createdAt) {
         this.id = id;
         this.name = name;
         this.content = content;
@@ -33,7 +33,7 @@ public class FolderResponse {
                 folder.getId(),
                 folder.getName(),
                 folder.getContent(),
-                folder.getOwner(),
+                folder.getOwner().getUsername(),
                 folder.getCreated_At().format(DateFormatterUtility.DATE_TIME_FORMATTER)
         );
     }
