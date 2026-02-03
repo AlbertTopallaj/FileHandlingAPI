@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -36,5 +37,10 @@ public class FolderService {
 
     public void deleteFolder(DeleteFolderRequest request){
         folderRepository.deleteById(request.getId());
+    }
+
+    public Folder getFolderById(UUID id, User user){
+        return folderRepository.findByIdAndOwner(id, user)
+                .orElseThrow(() -> new IllegalArgumentException("Folder not found"));
     }
 }

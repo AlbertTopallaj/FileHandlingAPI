@@ -52,4 +52,14 @@ public class FolderController {
             return ResponseEntity.badRequest().build();
         }
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<FolderResponse> getFolderById(@PathVariable UUID id, @AuthenticationPrincipal User user) {
+        try {
+            Folder folder = folderService.getFolderById(id, user);
+            return ResponseEntity.ok(FolderResponse.fromModel(folder));
+        } catch (IllegalArgumentException exception) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }
