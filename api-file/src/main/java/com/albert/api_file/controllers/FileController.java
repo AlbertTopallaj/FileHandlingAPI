@@ -4,6 +4,7 @@ import com.albert.api_file.dtos.DeleteFileRequest;
 import com.albert.api_file.dtos.UploadFileRequest;
 import com.albert.api_file.dtos.FileResponse;
 import com.albert.api_file.models.File;
+import com.albert.api_file.models.Folder;
 import com.albert.api_file.models.User;
 import com.albert.api_file.services.FileService;
 import lombok.RequiredArgsConstructor;

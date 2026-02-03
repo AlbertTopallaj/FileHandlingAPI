@@ -22,7 +22,7 @@ public class Folder {
     private String name;
 
     @Column
-    private int content;
+    private int files;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private User owner;
@@ -33,7 +33,7 @@ public class Folder {
     public Folder(String name){
         this.name = name;
         this.owner = owner;
-        this.content = 0;
+        this.files = files;
         this.created_At = LocalDateTime.now();
     }
 }

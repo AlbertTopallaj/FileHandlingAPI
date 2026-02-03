@@ -16,14 +16,14 @@ public class FolderResponse {
 
     private final UUID id;
     private String name;
-    private int content;
+    private int files;
     private String owner;
     private String createdAt;
 
-    public FolderResponse(UUID id, String name, int content, String owner, String createdAt) {
+    public FolderResponse(UUID id, String name, int files, String owner, String createdAt) {
         this.id = id;
         this.name = name;
-        this.content = content;
+        this.files = files;
         this.owner = owner;
         this.createdAt = createdAt;
     }
@@ -32,7 +32,7 @@ public class FolderResponse {
         return new FolderResponse(
                 folder.getId(),
                 folder.getName(),
-                folder.getContent(),
+                folder.getFiles(),
                 folder.getOwner().getUsername(),
                 folder.getCreated_At().format(DateFormatterUtility.DATE_TIME_FORMATTER)
         );

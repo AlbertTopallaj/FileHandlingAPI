@@ -1,21 +1,23 @@
 meta {
-  name: Delete File By Name
+  name: Delete File By Id
   type: http
   seq: 7
 }
 
 delete {
-  url: http://localhost:8080/file/delete/name?name=Testi testi
-  body: none
+  url: http://localhost:8080/file/delete
+  body: json
   auth: bearer
-}
-
-params:query {
-  name: Testi testi
 }
 
 auth:bearer {
   token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoMCIsImlhdCI6MTc2OTk5MDc5MCwiZXhwIjoxNzY5OTk0MzkwLCJzdWIiOiIzNjZkYzBhYS02MGIxLTQyYTItODA3Ni0wYTkyNTM2MDUwZTQifQ.ghr2QqAKe604Vww8Ygjt5Z2UCbw5raINyQGDcdpwVXA
+}
+
+body:json {
+  {
+    "id": "b6b49872-a413-4598-bf45-ea27a0c1bdd3"
+  }
 }
 
 settings {

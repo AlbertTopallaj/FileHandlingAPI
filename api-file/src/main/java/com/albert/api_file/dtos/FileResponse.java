@@ -22,7 +22,7 @@ public class FileResponse {
     private String title;
     private String content;
 
-    private String ownerUsername;
+    private String owner;
 
     private UUID folderId;
     private String createdAt;
