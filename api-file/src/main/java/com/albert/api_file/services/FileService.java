@@ -7,13 +7,12 @@ import com.albert.api_file.models.Folder;
 import com.albert.api_file.models.User;
 import com.albert.api_file.repositories.IFileRepository;
 import com.albert.api_file.repositories.IFolderRepository;
-import com.albert.api_file.repositories.IUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -46,5 +45,10 @@ public class FileService {
 
     public void deleteFile(DeleteFileRequest request){
         fileRepository.deleteById(request.getId());
+    }
+
+    public File getFileById(UUID id, User user){
+        return fileRepository.findByIdAndOwner(id, user)
+                .orElseThrow(() -> new IllegalArgumentException("File not found"));
     }
 }

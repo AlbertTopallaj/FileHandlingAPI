@@ -6,10 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
 public interface IFileRepository extends JpaRepository<File, UUID> {
-    List<File> findByTitleContaining(String name);
     List<File> findAllByOwner(User owner);
+    Optional<File> findByIdAndOwner(UUID id, User owner);
 }
