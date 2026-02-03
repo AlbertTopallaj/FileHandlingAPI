@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -16,11 +17,11 @@ public class FolderResponse {
 
     private final UUID id;
     private String name;
-    private int files;
+    private List<FileResponse> files;
     private String owner;
     private String createdAt;
 
-    public FolderResponse(UUID id, String name, int files, String owner, String createdAt) {
+    public FolderResponse(UUID id, String name, List<FileResponse> files, String owner, String createdAt) {
         this.id = id;
         this.name = name;
         this.files = files;
@@ -29,10 +30,15 @@ public class FolderResponse {
     }
 
     public static FolderResponse fromModel(Folder folder){
+
+        List<FileResponse> fileResponses = folder.getFiles().stream()
+                .map(FileResponse::fromModel)
+                .toList();
+
         return new FolderResponse(
                 folder.getId(),
                 folder.getName(),
-                folder.getFiles(),
+                fileResponses,
                 folder.getOwner().getUsername(),
                 folder.getCreated_At().format(DateFormatterUtility.DATE_TIME_FORMATTER)
         );
