@@ -1,15 +1,20 @@
 meta {
   name: Get All Folders
   type: http
-  seq: 6
+  seq: 8
 }
 
 get {
-  url: http://localhost:8080/folder
+  url: http://localhost:8080/folder/all
   body: none
-  auth: inherit
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoMCIsImlhdCI6MTc3MDIwMjM5NSwiZXhwIjoxNzcwMjA1OTk1LCJzdWIiOiJhYTU3OGI5Yy0wNTgyLTQ4MTMtYTFjYy00YWU0NDcxNGY5MDEifQ.HqScIvLitD6akbf53InPMsTboYfP2_8Cw6CmfYhkEsc
 }
 
 settings {
   encodeUrl: true
+  timeout: 0
 }

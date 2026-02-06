@@ -7,9 +7,12 @@ import com.albert.api_file.models.Folder;
 import com.albert.api_file.models.User;
 import com.albert.api_file.repositories.IFileRepository;
 import com.albert.api_file.repositories.IFolderRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -22,32 +25,34 @@ public class FileService {
     private final IFileRepository fileRepository;
     private final IFolderRepository folderRepository;
 
-    public File createFile(UploadFileRequest request, User user){
-        Folder folder = folderRepository.findById(UUID.fromString(request.getFolderId()))
-                .orElseThrow(() -> new IllegalArgumentException("Folder not found"));
+    @Transactional
+    public void saveFile(MultipartFile file, User owner, Folder folder) {
+        try {
+            File fileToSave = new File();
+            fileToSave.setFolder(folder);
+            fileToSave.setTitle(file.getOriginalFilename());
+            fileToSave.setContent(file.getBytes());
+            fileToSave.setSize((int) file.getSize());
+            fileToSave.setCreatedAt(LocalDateTime.now());
+            fileToSave.setOwner(owner);
 
-        var file = new File();
-        file.setTitle(request.getTitle());
-        file.setContent(request.getContent());
-        file.setOwner(user);
-        file.setFolder(folder);
-        file.setCreatedAt(LocalDateTime.now());
-        file.setSize(request.getContent().length());
 
-        fileRepository.save(file);
+            fileRepository.save(fileToSave);
+        } catch (IOException e) {
+            throw new RuntimeException("Could not save the file", e);
+        }
 
-        return file;
     }
 
-    public List<File> getAllFiles(User user){
+    public List<File> getAllFiles(User user) {
         return fileRepository.findAllByOwner(user);
     }
 
-    public void deleteFile(DeleteFileRequest request){
+    public void deleteFile(DeleteFileRequest request) {
         fileRepository.deleteById(request.getId());
     }
 
-    public File getFileById(UUID id, User user){
+    public File getFileById(UUID id, User user) {
         return fileRepository.findByIdAndOwner(id, user)
                 .orElseThrow(() -> new IllegalArgumentException("File not found"));
     }

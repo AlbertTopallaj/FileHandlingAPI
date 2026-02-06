@@ -20,7 +20,7 @@ public class FileResponse {
 
     private final UUID id;
     private String title;
-    private String content;
+    private byte[] content;
 
     private String owner;
 

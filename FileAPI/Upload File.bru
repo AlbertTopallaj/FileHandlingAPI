@@ -1,33 +1,29 @@
 meta {
   name: Upload File
   type: http
-  seq: 1
+  seq: 4
 }
 
 post {
-  url: http://localhost:8080/file
-  body: json
+  url: http://localhost:8080/file/upload
+  body: multipartForm
   auth: bearer
 }
 
-params:query {
-  : 
-}
-
-headers {
-  Content-Type: application/json
-}
-
 auth:bearer {
-  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoMCIsImlhdCI6MTc2OTYzMTUzMSwiZXhwIjoxNzY5NjM1MTMxLCJzdWIiOiJjYWFiZjIyMi0zMmU4LTQxYTYtYmY5ZC1kMTEyNjQyYjE4YTcifQ.lfF2AjVuSbMq5wYFxJLCy6rUL1MWnxZn9VpEhz2cbxE
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoMCIsImlhdCI6MTc3MDI2OTM0NywiZXhwIjoxNzcwMjcyOTQ3LCJzdWIiOiIxOWY0NDA1NS1mZGI0LTQ2N2UtYjA3ZS1iNTYzYWU3MGQwMzkifQ.IUHErR0bJgSTWmBSojOnGpBl9vVGp9ovqzyLnaHgiPU
 }
 
 body:json {
   {
-    "title": "Första filen",
-    "content": "Min absolut första chatten",
-    "username": "AlbertTopallaj"
+    "title": "test3",
+    "content": "test3",
+    "folderId": "08c1ca45-5708-46ec-a1f2-a20e09230ad0"
   }
+}
+
+body:multipart-form {
+  file: @file(C:\Users\altop\Desktop\springbootärbättreäncsharpp.txt) @contentType(File)
 }
 
 settings {

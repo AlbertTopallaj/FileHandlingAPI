@@ -2,12 +2,14 @@ package com.albert.api_file.controllers;
 
 import com.albert.api_file.dtos.CreateFolderRequest;
 import com.albert.api_file.dtos.DeleteFolderRequest;
+import com.albert.api_file.dtos.FileResponse;
 import com.albert.api_file.dtos.FolderResponse;
 import com.albert.api_file.models.Folder;
 import com.albert.api_file.models.User;
 import com.albert.api_file.services.FileService;
 import com.albert.api_file.services.FolderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +30,7 @@ public class FolderController {
     public ResponseEntity<?> createFolder(@RequestBody CreateFolderRequest createFolderRequest, @AuthenticationPrincipal User user){
         try {
             var folder = folderService.createFolder(createFolderRequest, user);
-            return ResponseEntity.created(URI.create("/folder")).body(FolderResponse.fromModel(folder));
+            return ResponseEntity.status(HttpStatus.CREATED).body(FolderResponse.fromModel(folder));
         } catch (IllegalArgumentException exception) {
             return ResponseEntity.badRequest()
                     .body(Map.of("error", exception.getMessage()));

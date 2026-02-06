@@ -22,13 +22,15 @@ public class File {
     @Column(unique = true)
     private String title;
 
+    @Lob
     @Column(nullable = false)
-    private String content;
+    private byte[] content;
 
     @Column(nullable = false)
     private int size;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -37,7 +39,7 @@ public class File {
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
-    public File(String title, String content) {
+    public File(String title, byte[] content) {
         this.title = title;
         this.content = content;
         this.owner =  owner;
@@ -45,6 +47,7 @@ public class File {
         this.createdAt = LocalDateTime.now();
     }
 
-    public File(String name) {
+    public File(String title) {
+        this.title = title;
     }
 }

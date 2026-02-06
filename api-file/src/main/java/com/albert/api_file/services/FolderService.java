@@ -24,16 +24,14 @@ public class FolderService {
     private final IFileRepository fileRepository;
 
     public Folder createFolder(CreateFolderRequest request, User user) {
-        var folder = new Folder(request.getName());
+        if (request.getName() == null || request.getName().isBlank()) {
+            throw new IllegalArgumentException("Folder name is required");
+        }
+        var folder = new Folder(request.getName(), user);
+        log.info("Folder saved: {} with user: {}", request.getName(), request.getUsername());
         folder.setOwner(user);
 
-
-        if (request.getName() == null){
-            System.out.println("There is no given name for the folder");
-        }
-
         folder = folderRepository.save(folder);
-        log.info("Mappen sparades {name}", request.getName());
         return folder;
     }
 
@@ -41,7 +39,7 @@ public class FolderService {
         return folderRepository.findAllByOwner(user);
     }
 
-    @Transactional
+
     public void deleteFolder(DeleteFolderRequest request){
         Folder folder = folderRepository.findById(request.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Folder not found"));

@@ -1,22 +1,26 @@
 meta {
   name: Create Folder
   type: http
-  seq: 5
+  seq: 4
 }
 
 post {
   url: http://localhost:8080/folder
   body: json
-  auth: inherit
+  auth: bearer
 }
 
 headers {
   Content-Type: application/json
 }
 
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoMCIsImlhdCI6MTc3MDI3MDA5MywiZXhwIjoxNzcwMjczNjkzLCJzdWIiOiI0OWE5MWU5MS0zODdhLTRlNjAtYTY3YS03YjQ5NjZlZDBkN2IifQ.RHwQUAFnyb05AsS019BkdpCTINsQ16NcvojyxGpEUQA
+}
+
 body:json {
   {
-    "name": "Mapp"
+    "name": "programmering2spring"
   }
 }
 

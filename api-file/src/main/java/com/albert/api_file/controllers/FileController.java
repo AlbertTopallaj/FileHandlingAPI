@@ -4,12 +4,16 @@ import com.albert.api_file.dtos.DeleteFileRequest;
 import com.albert.api_file.dtos.UploadFileRequest;
 import com.albert.api_file.dtos.FileResponse;
 import com.albert.api_file.models.File;
+import com.albert.api_file.models.Folder;
 import com.albert.api_file.models.User;
 import com.albert.api_file.services.FileService;
+import com.albert.api_file.services.FolderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URI;
 import java.util.List;
@@ -23,21 +27,17 @@ import java.util.UUID;
 public class FileController {
 
     private final FileService fileService;
+    private final FolderService folderService;
 
-    @PostMapping
-    public ResponseEntity<?> uploadFile(@RequestBody UploadFileRequest request, @AuthenticationPrincipal User user) {
+    @PostMapping("/upload")
+    public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("folderId") UUID folderId, @AuthenticationPrincipal User user) {
         try {
-            var file = fileService.createFile(request, user);
+            Folder folder = folderService.getFolderById(folderId, user);
 
-            return ResponseEntity.created(URI.create("/file")).body(FileResponse.fromModel(file));
+            fileService.saveFile(file, user, folder);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch (IllegalArgumentException exception) {
-            return ResponseEntity.badRequest()
-                    .body(Map.of("error", exception.getMessage()));
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            return ResponseEntity
-                    .internalServerError()
-                    .body(Map.of("error", "Unexcepted error, try again later"));
+            return ResponseEntity.badRequest().build();
         }
     }
 
