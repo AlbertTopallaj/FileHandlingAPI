@@ -21,6 +21,16 @@ public class UserService  {
     private final PasswordEncoder passwordEncoder;
     private final JWTService jwtService;
 
+    /**
+     * Creates a user with the information username and password given by the user
+     *
+     * @param username the username that the user inserts
+     * @param password the password that the user inserts
+     * @return the created user with the information inserted by the user
+     * @throws Exception if any error occur
+     */
+
+
 
     public User createUser(String username, String password) throws Exception {
         if (username.isBlank() || username.length() < 4) {
@@ -42,6 +52,14 @@ public class UserService  {
 
         return user;
     }
+
+    /**
+     * Login to the system with a username and a password and checks if the user actually exists in the database
+     *
+     * @param username the username that the user inserts
+     * @param password the password that the user inserts
+     * @return returns a token with is used to gain access to other endpoints with requires auth
+     */
 
     public String login(String username, String password) {
         Optional<User> optional = userRepository.findByUsername(username);
