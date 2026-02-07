@@ -13,16 +13,12 @@ import java.util.UUID;
 public class UserResponse {
 
     private final UUID id;
-
     private String username;
-    private String password;
-
     private String createdAt;
 
-    public UserResponse(UUID id, String username, String password, String createdAt) {
+    public UserResponse(UUID id, String username, String createdAt) {
         this.id = id;
         this.username = username;
-        this.password = password;
         this.createdAt = createdAt;
     }
 
@@ -30,7 +26,6 @@ public class UserResponse {
             return new UserResponse(
                     user.getId(),
                     user.getUsername(),
-                    user.getPassword(),
                     user.getCreatedAt().format(DateFormatterUtility.DATE_TIME_FORMATTER)
             );
         }
