@@ -19,7 +19,7 @@ public class File {
     @Id
     private UUID id = UUID.randomUUID();
 
-    @Column(unique = true)
+    @Column(nullable = false)
     private String title;
 
     @Lob

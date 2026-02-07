@@ -21,7 +21,7 @@ public class Folder {
     @Id
     private UUID id = UUID.randomUUID();
 
-    @Column(unique = true)
+    @Column(nullable = false)
     private String name;
 
     @OneToMany(mappedBy = "folder", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
