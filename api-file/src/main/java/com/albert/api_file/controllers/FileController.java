@@ -8,8 +8,11 @@ import com.albert.api_file.models.Folder;
 import com.albert.api_file.models.User;
 import com.albert.api_file.services.FileService;
 import com.albert.api_file.services.FolderService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +39,21 @@ public class FileController {
 
             fileService.saveFile(file, user, folder);
             return ResponseEntity.status(HttpStatus.CREATED).build();
+        } catch (IllegalArgumentException exception) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("download/{id}")
+    public ResponseEntity<byte[]> downloadFile(@PathVariable UUID id, @AuthenticationPrincipal User user){
+        try {
+            File file = fileService.getFileById(id, user);
+
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION,
+                            "attachment; filename=\"" + file.getTitle() + "\"")
+                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                    .body(file.getContent());
         } catch (IllegalArgumentException exception) {
             return ResponseEntity.badRequest().build();
         }
