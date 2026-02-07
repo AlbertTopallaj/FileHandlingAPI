@@ -75,7 +75,10 @@ public class FileService {
      * @param request the delete request containing the file ID which is going to be deleted
      */
 
-    public void deleteFile(DeleteFileRequest request) {
+    public void deleteFile(DeleteFileRequest request, User user) {
+        File file = fileRepository.findByIdAndOwner(request.getId(), user)
+                        .orElseThrow(() -> new IllegalArgumentException("File not found"));
+
         fileRepository.deleteById(request.getId());
     }
 

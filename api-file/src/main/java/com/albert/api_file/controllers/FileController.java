@@ -70,7 +70,7 @@ public class FileController {
     @DeleteMapping("/delete")
     public ResponseEntity<Void> deleteFile(@RequestBody DeleteFileRequest request, @AuthenticationPrincipal User user) {
         try {
-            fileService.deleteFile(request);
+            fileService.deleteFile(request, user);
             return ResponseEntity.noContent().build();
         } catch (IllegalArgumentException exception) {
             return ResponseEntity.badRequest().build();
