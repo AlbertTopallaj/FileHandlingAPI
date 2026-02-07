@@ -1,14 +1,12 @@
 package com.albert.api_file.controllers;
 
 import com.albert.api_file.dtos.DeleteFileRequest;
-import com.albert.api_file.dtos.UploadFileRequest;
 import com.albert.api_file.dtos.FileResponse;
 import com.albert.api_file.models.File;
 import com.albert.api_file.models.Folder;
 import com.albert.api_file.models.User;
 import com.albert.api_file.services.FileService;
 import com.albert.api_file.services.FolderService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,10 +16,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.net.URI;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController

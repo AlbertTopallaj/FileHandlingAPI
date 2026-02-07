@@ -1,7 +1,6 @@
 package com.albert.api_file.services;
 
 import com.albert.api_file.dtos.DeleteFileRequest;
-import com.albert.api_file.dtos.UploadFileRequest;
 import com.albert.api_file.models.File;
 import com.albert.api_file.models.Folder;
 import com.albert.api_file.models.User;
@@ -15,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
