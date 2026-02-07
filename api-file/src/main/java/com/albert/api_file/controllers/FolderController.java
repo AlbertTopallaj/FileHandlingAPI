@@ -48,7 +48,7 @@ public class FolderController {
     @DeleteMapping("/delete")
     public ResponseEntity<Void> deleteFolder(@AuthenticationPrincipal User user, @RequestBody DeleteFolderRequest request){
         try {
-            folderService.deleteFolder(request);
+            folderService.deleteFolder(request, user);
             return ResponseEntity.noContent().build();
         } catch (IllegalArgumentException exception){
             return ResponseEntity.badRequest().build();

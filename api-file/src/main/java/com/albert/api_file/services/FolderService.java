@@ -64,8 +64,8 @@ public class FolderService {
      */
 
 
-    public void deleteFolder(DeleteFolderRequest request){
-        Folder folder = folderRepository.findById(request.getId())
+    public void deleteFolder(DeleteFolderRequest request, User user){
+        Folder folder = folderRepository.findByIdAndOwner(request.getId(), user)
                 .orElseThrow(() -> new IllegalArgumentException("Folder not found"));
 
         fileRepository.deleteAllByFolder(folder);
