@@ -2,6 +2,7 @@ package com.albert.api_file.services;
 
 import com.albert.api_file.dtos.CreateFolderRequest;
 import com.albert.api_file.dtos.DeleteFolderRequest;
+import com.albert.api_file.exceptions.FolderDoesntExistException;
 import com.albert.api_file.exceptions.FolderNotFoundException;
 import com.albert.api_file.exceptions.MissingFolderNameException;
 import com.albert.api_file.models.Folder;
@@ -66,7 +67,7 @@ public class FolderService {
     @Transactional
     public void deleteFolder(DeleteFolderRequest request, User user) {
         Folder folder = folderRepository.findByIdAndOwner(request.getId(), user)
-                .orElseThrow(() -> new FolderNotFoundException());
+                .orElseThrow(() -> new FolderDoesntExistException());
 
 
         fileRepository.deleteAllByFolder(folder);
@@ -84,6 +85,6 @@ public class FolderService {
 
     public Folder getFolderById(UUID id, User user) {
         return folderRepository.findByIdAndOwner(id, user)
-                .orElseThrow(() -> new FolderNotFoundException("Folder not found"));
+                .orElseThrow(() -> new FolderNotFoundException());
     }
 }

@@ -1,9 +1,7 @@
 package com.albert.api_file.services;
 
 import com.albert.api_file.dtos.DeleteFileRequest;
-import com.albert.api_file.exceptions.FileAlreadyExistsException;
-import com.albert.api_file.exceptions.FileIsEmptyException;
-import com.albert.api_file.exceptions.FileNotFoundException;
+import com.albert.api_file.exceptions.*;
 import com.albert.api_file.models.File;
 import com.albert.api_file.models.Folder;
 import com.albert.api_file.models.User;
@@ -41,6 +39,10 @@ public class FileService {
 
         if (file.isEmpty()) {
             throw new FileIsEmptyException();
+        }
+
+        if (file.getOriginalFilename() == null || file.getOriginalFilename().isBlank()){
+            throw new MissingFileNameException();
         }
 
         if (fileRepository.existsByTitleAndOwner(file.getOriginalFilename(), owner)) {
@@ -84,7 +86,7 @@ public class FileService {
     public void deleteFile(DeleteFileRequest request, User user) {
 
         File file = fileRepository.findByIdAndOwner(request.getId(), user)
-                .orElseThrow(() -> new FileNotFoundException());
+                .orElseThrow(() -> new FileDoesntExistException());
 
         fileRepository.deleteById(file.getId());
     }
