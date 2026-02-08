@@ -4,13 +4,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.CONFLICT)
-public class UserAlreadyExistsException extends RuntimeException {
+public class FileAlreadyExistsException extends RuntimeException {
 
-    public UserAlreadyExistsException(String message){
+    public FileAlreadyExistsException(String message) {
         super(message);
     }
 
-    public UserAlreadyExistsException(){
-        super("The username is already taken");
+    public FileAlreadyExistsException(){
+        super("The file already exists");
     }
 }

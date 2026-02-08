@@ -15,4 +15,5 @@ public interface IFileRepository extends JpaRepository<File, UUID> {
     List<File> findAllByOwner(User owner);
     Optional<File> findByIdAndOwner(UUID id, User owner);
     void deleteAllByFolder(Folder folder);
+    boolean existsByTitleAndOwner(String title, User owner);
 }
