@@ -27,12 +27,11 @@ public class UserService  {
      * @param username the username that the user inserts
      * @param password the password that the user inserts
      * @return the created user with the information inserted by the user
-     * @throws Exception if any error occur
      */
 
 
 
-    public User createUser(String username, String password) throws Exception {
+    public User createUser(String username, String password) {
         if (username.isBlank() || username.length() < 4) {
             throw new IllegalArgumentException("Username is either empty or too short. Must contain 4 or more characters");
         }

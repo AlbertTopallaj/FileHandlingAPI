@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -29,56 +30,41 @@ public class FileController {
 
     @PostMapping("/upload")
     public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("folderId") UUID folderId, @AuthenticationPrincipal User user) {
-        try {
-            Folder folder = folderService.getFolderById(folderId, user);
+        Folder folder = folderService.getFolderById(folderId, user);
+        fileService.saveFile(file, user, folder);
 
-            fileService.saveFile(file, user, folder);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
-        } catch (IllegalArgumentException exception) {
-            return ResponseEntity.badRequest().build();
-        }
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping("download/{id}")
-    public ResponseEntity<byte[]> downloadFile(@PathVariable UUID id, @AuthenticationPrincipal User user){
-        try {
-            File file = fileService.getFileById(id, user);
+    public ResponseEntity<?> downloadFile(@PathVariable UUID id, @AuthenticationPrincipal User user) {
 
-            return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION,
-                            "attachment; filename=\"" + file.getTitle() + "\"")
-                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                    .body(file.getContent());
-        } catch (IllegalArgumentException exception) {
-            return ResponseEntity.badRequest().build();
-        }
+        File file = fileService.getFileById(id, user);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment; filename=\"" + file.getTitle() + "\"")
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(file.getContent());
     }
 
     @GetMapping("/all")
-    public List<FileResponse> getAllFiles(@AuthenticationPrincipal User user) {
-        return fileService.getAllFiles(user)
+    public ResponseEntity<?> getAllFiles(@AuthenticationPrincipal User user) {
+        List<FileResponse> files = fileService.getAllFiles(user)
                 .stream()
                 .map(FileResponse::fromModel)
                 .toList();
+        return ResponseEntity.ok(files);
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<Void> deleteFile(@RequestBody DeleteFileRequest request, @AuthenticationPrincipal User user) {
-        try {
-            fileService.deleteFile(request, user);
-            return ResponseEntity.noContent().build();
-        } catch (IllegalArgumentException exception) {
-            return ResponseEntity.badRequest().build();
-        }
+    public ResponseEntity<?> deleteFile(@RequestBody DeleteFileRequest request, @AuthenticationPrincipal User user) {
+        fileService.deleteFile(request, user);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<FileResponse> getFileById(@PathVariable UUID id, @AuthenticationPrincipal User user) {
-        try {
-            File file = fileService.getFileById(id, user);
-            return ResponseEntity.ok(FileResponse.fromModel(file));
-        } catch (IllegalArgumentException exception) {
-            return ResponseEntity.badRequest().build();
-        }
+    public ResponseEntity<?> getFileById(@PathVariable UUID id, @AuthenticationPrincipal User user) {
+        File file = fileService.getFileById(id, user);
+        return ResponseEntity.ok(FileResponse.fromModel(file));
     }
 }

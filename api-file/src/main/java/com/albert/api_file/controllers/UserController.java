@@ -20,32 +20,13 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<?> createUser(@RequestBody RegisterUserRequest request) {
-        try {
             var user = userService.createUser(request.getUsername(), request.getPassword());
             return ResponseEntity.created(URI.create("/user")).body(UserResponse.fromModel(user));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return ResponseEntity
-                    .badRequest()
-                    .body(Map.of(
-                            "message", "Invalid password, password must be longer.",
-                            "errors", "Something went wrong"
-                    ));
-        }
     }
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {
-        try {
             String token = userService.login(loginRequest.getUsername(), loginRequest.getPassword());
             return ResponseEntity.ok(new LoginResponse(token));
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity
-                    .badRequest()
-                    .body(Map.of(
-                            "message", "Invalid credentalias"
-                    ));
-        }
     }
 }
 
