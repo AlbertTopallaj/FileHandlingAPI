@@ -28,17 +28,16 @@ public class FileService {
      * The file content is stored in bytes with the information such as
      * owner, folder, size and even the time it was created
      *
-     *
-     * @param file the multipart file to be saved
-     * @param owner the user who owns this file
+     * @param file   the multipart file to be saved
+     * @param owner  the user who owns this file
      * @param folder the folder where the file will be stored
-     * @throws IOException if the file cannot be read or saved to the database
-     *
+     * @throws Exception if the file cannot be read or saved to the database
      */
 
     @Transactional
     public void saveFile(MultipartFile file, User owner, Folder folder) {
         try {
+
             File fileToSave = new File();
             fileToSave.setFolder(folder);
             fileToSave.setTitle(file.getOriginalFilename());
@@ -49,8 +48,8 @@ public class FileService {
 
 
             fileRepository.save(fileToSave);
-        } catch (IOException e) {
-            throw new RuntimeException("Could not save the file", e);
+        } catch (Exception exception) {
+            throw new RuntimeException("Could not save the file", exception);
         }
 
     }
@@ -58,13 +57,16 @@ public class FileService {
     /**
      * Get all files owned by a specific user
      *
-     *
      * @param user the user whose files should be from
      * @return a list of all files owned by a specified user
      */
 
     public List<File> getAllFiles(User user) {
-        return fileRepository.findAllByOwner(user);
+        try {
+            return fileRepository.findAllByOwner(user);
+        } catch (Exception exception) {
+            throw new RuntimeException();
+        }
     }
 
     /**
@@ -73,24 +75,33 @@ public class FileService {
      * @param request the delete request containing the file ID which is going to be deleted
      */
 
+    @Transactional
     public void deleteFile(DeleteFileRequest request, User user) {
-        File file = fileRepository.findByIdAndOwner(request.getId(), user)
-                        .orElseThrow(() -> new IllegalArgumentException("File not found"));
+        try {
+            File file = fileRepository.findByIdAndOwner(request.getId(), user)
+                    .orElseThrow(() -> new IllegalArgumentException("File not found"));
 
-        fileRepository.deleteById(request.getId());
+            fileRepository.deleteById(file.getId());
+        } catch (Exception exception) {
+            throw new RuntimeException("Could not delete file: " + exception.getMessage(), exception);
+        }
     }
 
     /**
      * Gets a specific file based on its ID if the user is the owner
      *
-     * @param id the identifier of the file
+     * @param id   the identifier of the file
      * @param user the user requesting access to the file
      * @return the file if found and owned by the user
      * @throws IllegalArgumentException if the file is not found or the user is not the right owner
      */
 
     public File getFileById(UUID id, User user) {
-        return fileRepository.findByIdAndOwner(id, user)
-                .orElseThrow(() -> new IllegalArgumentException("File not found"));
+        try {
+            return fileRepository.findByIdAndOwner(id, user)
+                    .orElseThrow(() -> new IllegalArgumentException("File not found"));
+        } catch (Exception e) {
+            throw new RuntimeException("Could not find the file by id " + id + "" + e);
+        }
     }
 }
