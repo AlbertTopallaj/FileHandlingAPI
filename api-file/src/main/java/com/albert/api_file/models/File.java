@@ -39,15 +39,4 @@ public class File {
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
-    public File(String title, byte[] content) {
-        this.title = title;
-        this.content = content;
-        this.owner = owner;
-        this.folder = folder;
-        this.createdAt = LocalDateTime.now();
-    }
-
-    public File(String title) {
-        this.title = title;
-    }
 }
