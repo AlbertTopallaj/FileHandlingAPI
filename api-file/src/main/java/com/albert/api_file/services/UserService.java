@@ -35,7 +35,7 @@ public class UserService  {
         if (username.isBlank() || username.length() < 4) {
             throw new IllegalArgumentException("Username is either empty or too short. Must contain 4 or more characters");
         }
-        // TODO: These has to be showed to the users
+
         if (password.isBlank() || password.length() < 8) {
             throw new IllegalArgumentException("Password is either empty or too short. Must contain 8 or more characters");
         }
