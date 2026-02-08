@@ -1,12 +1,12 @@
 package com.albert.api_file.exceptions;
 
-public class DatabaseException extends RuntimeException{
+public class DatabaseException extends RuntimeException {
 
-    public DatabaseException(String message){
+    public DatabaseException(String message) {
         super(message);
     }
 
-    public DatabaseException(){
+    public DatabaseException() {
         super("Database error");
     }
 }

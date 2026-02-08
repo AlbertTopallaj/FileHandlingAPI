@@ -2,6 +2,8 @@ package com.albert.api_file.services;
 
 import com.albert.api_file.dtos.CreateFolderRequest;
 import com.albert.api_file.dtos.DeleteFolderRequest;
+import com.albert.api_file.exceptions.FolderNotFoundException;
+import com.albert.api_file.exceptions.MissingFolderNameException;
 import com.albert.api_file.models.Folder;
 import com.albert.api_file.models.User;
 import com.albert.api_file.repositories.IFileRepository;
@@ -10,9 +12,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.InvalidIsolationLevelException;
-
-import java.beans.Transient;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,20 +32,16 @@ public class FolderService {
 
     public Folder createFolder(CreateFolderRequest request, User user) {
         if (request.getName() == null || request.getName().isBlank()) {
-            throw new IllegalArgumentException("Folder name is missing, please enter the Folder name and try again");
+            throw new MissingFolderNameException();
         }
 
-        try {
-            var folder = new Folder(request.getName(), user);
-            log.info("Folder saved: {}", request.getName());
-            folder.setOwner(user);
 
-            folder = folderRepository.save(folder);
-            return folder;
-        } catch (Exception exception) {
-            throw new RuntimeException("Could not create folder " + exception + ", " + exception.getMessage());
-        }
+        var folder = new Folder(request.getName(), user);
+        log.info("Folder saved: {}", request.getName());
+        folder.setOwner(user);
 
+        folder = folderRepository.save(folder);
+        return folder;
     }
 
     /**
@@ -58,17 +53,7 @@ public class FolderService {
      */
 
     public List<Folder> getAllFolders(User user) {
-        try {
-            List<Folder> folders = folderRepository.findAllByOwner(user);
-
-            if (folders.isEmpty()){
-                throw new IllegalArgumentException("No folders found");
-            }
-
-            return folderRepository.findAllByOwner(user);
-        } catch (Exception exception) {
-            throw new RuntimeException("Could not get all folders " + exception + ", " + exception.getMessage());
-        }
+        return folderRepository.findAllByOwner(user);
     }
 
     /**
@@ -80,15 +65,12 @@ public class FolderService {
     @Transactional
     public void deleteFolder(DeleteFolderRequest request, User user) {
         Folder folder = folderRepository.findByIdAndOwner(request.getId(), user)
-                .orElseThrow(() -> new IllegalArgumentException("Folder not found"));
+                .orElseThrow(() -> new FolderNotFoundException());
 
-        try {
-            fileRepository.deleteAllByFolder(folder);
 
-            folderRepository.delete(folder);
-        } catch (Exception exception) {
-            throw new RuntimeException();
-        }
+        fileRepository.deleteAllByFolder(folder);
+
+        folderRepository.delete(folder);
     }
 
     /**
@@ -100,11 +82,7 @@ public class FolderService {
      */
 
     public Folder getFolderById(UUID id, User user) {
-        try {
-            return folderRepository.findByIdAndOwner(id, user)
-                    .orElseThrow(() -> new IllegalArgumentException("Folder not found"));
-        } catch (Exception exception) {
-            throw new RuntimeException();
-        }
+        return folderRepository.findByIdAndOwner(id, user)
+                .orElseThrow(() -> new FolderNotFoundException("Folder not found"));
     }
 }

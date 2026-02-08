@@ -1,6 +1,8 @@
 package com.albert.api_file.services;
 
 import com.albert.api_file.dtos.DeleteFileRequest;
+import com.albert.api_file.exceptions.FileIsEmptyException;
+import com.albert.api_file.exceptions.FileNotFoundException;
 import com.albert.api_file.models.File;
 import com.albert.api_file.models.Folder;
 import com.albert.api_file.models.User;
@@ -21,7 +23,6 @@ import java.util.UUID;
 public class FileService {
 
     private final IFileRepository fileRepository;
-    private final IFolderRepository folderRepository;
 
     /**
      * Saves a multipart file to the database with the including metadata.
@@ -36,21 +37,25 @@ public class FileService {
 
     @Transactional
     public void saveFile(MultipartFile file, User owner, Folder folder) {
-        try {
 
-            File fileToSave = new File();
-            fileToSave.setFolder(folder);
-            fileToSave.setTitle(file.getOriginalFilename());
-            fileToSave.setContent(file.getBytes());
-            fileToSave.setSize((int) file.getSize());
-            fileToSave.setCreatedAt(LocalDateTime.now());
-            fileToSave.setOwner(owner);
-
-
-            fileRepository.save(fileToSave);
-        } catch (Exception exception) {
-            throw new RuntimeException("Could not save the file", exception);
+        if (file.isEmpty()){
+            throw new FileIsEmptyException();
         }
+
+        File fileToSave = new File();
+        fileToSave.setFolder(folder);
+        fileToSave.setTitle(file.getOriginalFilename());
+        try {
+            fileToSave.setContent(file.getBytes());
+        } catch (IOException e) {
+            throw new FileIsEmptyException();
+        }
+
+        fileToSave.setSize((int) file.getSize());
+        fileToSave.setCreatedAt(LocalDateTime.now());
+        fileToSave.setOwner(owner);
+
+        fileRepository.save(fileToSave);
 
     }
 
@@ -62,11 +67,7 @@ public class FileService {
      */
 
     public List<File> getAllFiles(User user) {
-        try {
-            return fileRepository.findAllByOwner(user);
-        } catch (Exception exception) {
-            throw new RuntimeException();
-        }
+        return fileRepository.findAllByOwner(user);
     }
 
     /**
@@ -77,14 +78,11 @@ public class FileService {
 
     @Transactional
     public void deleteFile(DeleteFileRequest request, User user) {
-        try {
-            File file = fileRepository.findByIdAndOwner(request.getId(), user)
-                    .orElseThrow(() -> new IllegalArgumentException("File not found"));
 
-            fileRepository.deleteById(file.getId());
-        } catch (Exception exception) {
-            throw new RuntimeException("Could not delete file: " + exception.getMessage(), exception);
-        }
+        File file = fileRepository.findByIdAndOwner(request.getId(), user)
+                .orElseThrow(() -> new FileNotFoundException());
+
+        fileRepository.deleteById(file.getId());
     }
 
     /**
@@ -97,11 +95,8 @@ public class FileService {
      */
 
     public File getFileById(UUID id, User user) {
-        try {
-            return fileRepository.findByIdAndOwner(id, user)
-                    .orElseThrow(() -> new IllegalArgumentException("File not found"));
-        } catch (Exception e) {
-            throw new RuntimeException("Could not find the file by id " + id + "" + e);
-        }
+
+        return fileRepository.findByIdAndOwner(id, user)
+                .orElseThrow(() -> new FileNotFoundException());
     }
 }
