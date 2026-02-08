@@ -27,6 +27,9 @@ public class UserService {
      * @param username the username that the user inserts
      * @param password the password that the user inserts
      * @return the created user with the information inserted by the user
+     * @throws UsernameErrorException if the username is blank or shorter than 4 characters
+     * @throws PasswordErrorException if the password is blank or shorter than 8 characters
+     * @throws UserAlreadyExistsException if a user with the given username already exists
      */
 
 
@@ -57,6 +60,7 @@ public class UserService {
      * @param username the username that the user inserts
      * @param password the password that the user inserts
      * @return returns a token with is used to gain access to other endpoints with requires auth
+     * @throws InvalidUserCredentialsException if the username does not exist or the password is incorrect
      */
 
     public String login(String username, String password) {

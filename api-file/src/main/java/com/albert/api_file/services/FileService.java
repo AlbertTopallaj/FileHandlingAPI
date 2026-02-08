@@ -30,8 +30,10 @@ public class FileService {
      * @param file   the multipart file to be saved
      * @param owner  the user who owns this file
      * @param folder the folder where the file will be stored
-     * @return
-     * @throws Exception if the file cannot be read or saved to the database
+     * @return the saved file
+     * @throws FileIsEmptyException if the uploaded file is empty
+     * @throws MissingFileNameException if the file is missing or blank
+     * @throws FileAlreadyExistsException if the user already has a file with the same name
      */
 
     @Transactional
@@ -80,6 +82,8 @@ public class FileService {
      * Deletes a file from the database based on the given file ID
      *
      * @param request the delete request containing the file ID which is going to be deleted
+     * @param user the owner of the file
+     * @throws FileDoesntExistException if the file does not exist or does not belong to the user
      */
 
     @Transactional
@@ -96,8 +100,8 @@ public class FileService {
      *
      * @param id   the identifier of the file
      * @param user the user requesting access to the file
-     * @return the file if found and owned by the user
-     * @throws IllegalArgumentException if the file is not found or the user is not the right owner
+     * @return the file
+     * @throws FileNotFoundException if the file is not found or the user is not the right owner
      */
 
     public File getFileById(UUID id, User user) {

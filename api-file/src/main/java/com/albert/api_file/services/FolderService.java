@@ -29,6 +29,7 @@ public class FolderService {
      * @param request the create request containing the folders name given by the user
      * @param user    the user who creates the file and owns it
      * @return folder the folder that was just created with the name and a ID
+     * @throws MissingFolderNameException if the folder name is null or blank
      */
 
 
@@ -62,6 +63,8 @@ public class FolderService {
      * Deletes a folder from the database based on the given folder ID
      *
      * @param request the delete request containing the folders ID
+     * @param user the owner of the folder
+     * @throws FolderDoesntExistException if the folder does not exist or does not belong to the user
      */
 
     @Transactional
@@ -81,6 +84,7 @@ public class FolderService {
      * @param id   the identifier of the folder
      * @param user the user requesting access to the folder
      * @return the folder if found and owned by the user
+     * @throws FolderNotFoundException if the folder does not exist or does not belong to the user
      */
 
     public Folder getFolderById(UUID id, User user) {
