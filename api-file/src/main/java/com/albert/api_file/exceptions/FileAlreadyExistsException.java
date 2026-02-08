@@ -10,7 +10,7 @@ public class FileAlreadyExistsException extends RuntimeException {
         super(message);
     }
 
-    public FileAlreadyExistsException(){
+    public FileAlreadyExistsException() {
         super("The file already exists");
     }
 }

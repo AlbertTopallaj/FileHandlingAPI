@@ -8,7 +8,6 @@ import com.albert.api_file.models.File;
 import com.albert.api_file.models.Folder;
 import com.albert.api_file.models.User;
 import com.albert.api_file.repositories.IFileRepository;
-import com.albert.api_file.repositories.IFolderRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -33,13 +32,14 @@ public class FileService {
      * @param file   the multipart file to be saved
      * @param owner  the user who owns this file
      * @param folder the folder where the file will be stored
+     * @return
      * @throws Exception if the file cannot be read or saved to the database
      */
 
     @Transactional
-    public void saveFile(MultipartFile file, User owner, Folder folder) {
+    public File saveFile(MultipartFile file, User owner, Folder folder) {
 
-        if (file.isEmpty()){
+        if (file.isEmpty()) {
             throw new FileIsEmptyException();
         }
 
@@ -60,8 +60,7 @@ public class FileService {
         fileToSave.setCreatedAt(LocalDateTime.now());
         fileToSave.setOwner(owner);
 
-        fileRepository.save(fileToSave);
-
+        return fileRepository.save(fileToSave);
     }
 
     /**

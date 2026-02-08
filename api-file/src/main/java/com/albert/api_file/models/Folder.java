@@ -34,7 +34,7 @@ public class Folder {
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
-    public Folder(String name, User owner){
+    public Folder(String name, User owner) {
         this.name = name;
         this.owner = owner;
         this.createdAt = LocalDateTime.now();

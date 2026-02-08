@@ -27,7 +27,7 @@ public class FileResponse {
     private UUID folderId;
     private String createdAt;
 
-    public static FileResponse fromModel(File file){
+    public static FileResponse fromModel(File file) {
         return new FileResponse(
                 file.getId(),
                 file.getTitle(),

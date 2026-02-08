@@ -13,5 +13,6 @@ import java.util.UUID;
 @Repository
 public interface IFolderRepository extends JpaRepository<Folder, UUID> {
     List<Folder> findAllByOwner(User owner);
+
     Optional<Folder> findByIdAndOwner(UUID id, User owner);
 }

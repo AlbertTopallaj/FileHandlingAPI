@@ -27,7 +27,7 @@ public class FolderResponse {
         this.owner = owner;
     }
 
-    public static FolderResponse fromModel(Folder folder){
+    public static FolderResponse fromModel(Folder folder) {
 
         List<FileResponse> fileResponses = folder.getFiles().stream()
                 .map(FileResponse::fromModel)

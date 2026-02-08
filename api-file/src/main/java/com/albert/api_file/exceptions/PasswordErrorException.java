@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class PasswordErrorException extends RuntimeException {
 
-    public PasswordErrorException(String message){
+    public PasswordErrorException(String message) {
         super(message);
     }
 
-    public PasswordErrorException(){
+    public PasswordErrorException() {
         super("Password is missing or its shorter than 8 characters");
     }
 }

@@ -42,7 +42,7 @@ public class File {
     public File(String title, byte[] content) {
         this.title = title;
         this.content = content;
-        this.owner =  owner;
+        this.owner = owner;
         this.folder = folder;
         this.createdAt = LocalDateTime.now();
     }

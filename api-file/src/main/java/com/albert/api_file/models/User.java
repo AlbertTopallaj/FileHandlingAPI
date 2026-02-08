@@ -16,7 +16,7 @@ import java.util.*;
 @Getter
 @Setter
 @NoArgsConstructor
-public class User implements UserDetails{
+public class User implements UserDetails {
 
     @Id
     private UUID id = UUID.randomUUID();

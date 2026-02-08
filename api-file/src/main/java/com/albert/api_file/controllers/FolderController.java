@@ -27,9 +27,9 @@ public class FolderController {
     private final FolderService folderService;
 
     @PostMapping
-    public ResponseEntity<?> createFolder(@RequestBody CreateFolderRequest createFolderRequest, @AuthenticationPrincipal User user) {
-            var folder = folderService.createFolder(createFolderRequest, user);
-            return ResponseEntity.status(HttpStatus.CREATED).body(FolderResponse.fromModel(folder));
+    public ResponseEntity<FolderResponse> createFolder(@RequestBody CreateFolderRequest createFolderRequest, @AuthenticationPrincipal User user) {
+        var folder = folderService.createFolder(createFolderRequest, user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(FolderResponse.fromModel(folder));
     }
 
     @GetMapping("/all")
@@ -41,14 +41,14 @@ public class FolderController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteFolder(@AuthenticationPrincipal User user, @RequestBody DeleteFolderRequest request) {
-            folderService.deleteFolder(request, user);
-            return ResponseEntity.noContent().build();
+    public ResponseEntity<Void> deleteFolder(@AuthenticationPrincipal User user, @RequestBody DeleteFolderRequest request) {
+        folderService.deleteFolder(request, user);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getFolderById(@PathVariable UUID id, @AuthenticationPrincipal User user) {
-            Folder folder = folderService.getFolderById(id, user);
-            return ResponseEntity.ok(FolderResponse.fromModel(folder));
+    public ResponseEntity<FolderResponse> getFolderById(@PathVariable UUID id, @AuthenticationPrincipal User user) {
+        Folder folder = folderService.getFolderById(id, user);
+        return ResponseEntity.ok(FolderResponse.fromModel(folder));
     }
 }

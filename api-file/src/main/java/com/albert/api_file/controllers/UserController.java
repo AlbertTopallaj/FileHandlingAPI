@@ -20,13 +20,14 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<?> createUser(@RequestBody RegisterUserRequest request) {
-            var user = userService.createUser(request.getUsername(), request.getPassword());
-            return ResponseEntity.created(URI.create("/user")).body(UserResponse.fromModel(user));
+        var user = userService.createUser(request.getUsername(), request.getPassword());
+        return ResponseEntity.created(URI.create("/user")).body(UserResponse.fromModel(user));
     }
+
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {
-            String token = userService.login(loginRequest.getUsername(), loginRequest.getPassword());
-            return ResponseEntity.ok(new LoginResponse(token));
+        String token = userService.login(loginRequest.getUsername(), loginRequest.getPassword());
+        return ResponseEntity.ok(new LoginResponse(token));
     }
 }
 

@@ -30,15 +30,16 @@ public class FileController {
     private final FolderService folderService;
 
     @PostMapping("/upload")
-    public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("folderId") UUID folderId, @AuthenticationPrincipal User user) {
+    public ResponseEntity<FileResponse> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("folderId") UUID folderId, @AuthenticationPrincipal User user) {
         Folder folder = folderService.getFolderById(folderId, user);
-        fileService.saveFile(file, user, folder);
+        File savedFile = fileService.saveFile(file, user, folder);
 
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(FileResponse.fromModel(savedFile));
     }
 
     @GetMapping("download/{id}")
-    public ResponseEntity<?> downloadFile(@PathVariable UUID id, @AuthenticationPrincipal User user) {
+    public ResponseEntity<byte[]> downloadFile(@PathVariable UUID id, @AuthenticationPrincipal User user) {
 
         File file = fileService.getFileById(id, user);
         return ResponseEntity.ok()
@@ -49,7 +50,7 @@ public class FileController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<?> getAllFiles(@AuthenticationPrincipal User user) {
+    public ResponseEntity<List<FileResponse>> getAllFiles(@AuthenticationPrincipal User user) {
         List<FileResponse> files = fileService.getAllFiles(user)
                 .stream()
                 .map(FileResponse::fromModel)
@@ -58,13 +59,13 @@ public class FileController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteFile(@RequestBody DeleteFileRequest request, @AuthenticationPrincipal User user) {
+    public ResponseEntity<Void> deleteFile(@RequestBody DeleteFileRequest request, @AuthenticationPrincipal User user) {
         fileService.deleteFile(request, user);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getFileById(@PathVariable UUID id, @AuthenticationPrincipal User user) {
+    public ResponseEntity<FileResponse> getFileById(@PathVariable UUID id, @AuthenticationPrincipal User user) {
         File file = fileService.getFileById(id, user);
         return ResponseEntity.ok(FileResponse.fromModel(file));
     }

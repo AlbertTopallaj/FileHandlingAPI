@@ -22,11 +22,11 @@ public class UserResponse {
         this.createdAt = createdAt;
     }
 
-        public static UserResponse fromModel(User user){
-            return new UserResponse(
-                    user.getId(),
-                    user.getUsername(),
-                    user.getCreatedAt().format(DateFormatterUtility.DATE_TIME_FORMATTER)
-            );
-        }
+    public static UserResponse fromModel(User user) {
+        return new UserResponse(
+                user.getId(),
+                user.getUsername(),
+                user.getCreatedAt().format(DateFormatterUtility.DATE_TIME_FORMATTER)
+        );
     }
+}
